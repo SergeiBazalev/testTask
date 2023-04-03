@@ -1,0 +1,87 @@
+<div class="header">
+  <button class="header__exit-button" (click)="exit()">Exit</button>
+  <div class="search-container">
+    <p class="header__title">Поиск по:</p>
+    <select class="header__search-field" [(ngModel)]="searchField">
+      <option value="last_name">Фамилии</option>
+      <option value="first_name">Имени</option>
+      <option value="user_id">ID пользователя</option>
+      <option value="birthday">Дате рождения</option>
+    </select>
+    <input class="header__search-input" placeholder="Search" type="text" [(ngModel)]="search">
+  </div>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th (click)="sort('first_name')">
+        Имя
+        <i class="sort-arrow-down" *ngIf="sortField === 'first_name' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'first_name' && sortDirection === 'desc'"></i>
+      </th>
+      <th (click)="sort('last_name')">
+        Фамилия
+        <i class="sort-arrow-down" *ngIf="sortField === 'last_name' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'last_name' && sortDirection === 'desc'"></i>
+      </th>
+      <th (click)="sort('pat_name')">
+        Отчество
+        <i class="sort-arrow-down" *ngIf="sortField === 'pat_name' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'pat_name' && sortDirection === 'desc'"></i>
+      </th>
+      <th (click)="sort('email')">
+        Email
+        <i class="sort-arrow-down" *ngIf="sortField === 'email' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'email' && sortDirection === 'desc'"></i>
+      </th>
+      <th (click)="sort('birthday')">
+        Дата рождения
+        <i class="sort-arrow-down" *ngIf="sortField === 'birthday' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'birthday' && sortDirection === 'desc'"></i></th>
+      <th (click)="sort('phone')">
+        Телефон
+        <i class="sort-arrow-down" *ngIf="sortField === 'phone' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'phone' && sortDirection === 'desc'"></i>
+      </th>
+      <th (click)="sort('user_id')">
+        ID
+        <i class="sort-arrow-down" *ngIf="sortField === 'user_id' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'user_id' && sortDirection === 'desc'"></i>
+      </th>
+      <th (click)="sort('summ')">
+        Сумма
+        <i class="sort-arrow-down" *ngIf="sortField === 'summ' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'summ' && sortDirection === 'desc'"></i>
+      </th>
+      <th (click)="sort('discount')">
+        Скидка
+        <i class="sort-arrow-down" *ngIf="sortField === 'discount' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'discount' && sortDirection === 'desc'"></i>
+      </th>
+      <th (click)="sort('bonus')">
+        Бонус
+        <i class="sort-arrow-down" *ngIf="sortField === 'bonus' && sortDirection === 'asc'"></i>
+        <i class="sort-arrow-up" *ngIf="sortField === 'bonus' && sortDirection === 'desc'"></i></th>
+      <th>Отправка Push</th>
+    </tr>
+
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of allUsers | filter:search:searchField" >
+      <td >{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.pat_name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.birthday }}</td>
+      <td>{{ user.phone }}</td>
+      <td>{{ user.user_id }}</td>
+      <td>{{ user.summ }}</td>
+      <td>{{ user.discount }}</td>
+      <td>{{ user.bonus }}</td>
+      <td class="push">
+        <textarea type="text" placeholder="message" [(ngModel)]="user.messageForUser"></textarea>
+        <button [disabled]="!user.messageForUser" (click)="pushMessage(user.user_id, user.messageForUser!)">Push</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

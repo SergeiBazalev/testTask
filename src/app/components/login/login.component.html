@@ -1,0 +1,25 @@
+
+  <form class="login-form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="login-form__input">
+      <label for="first-name">Login: </label>
+      <input id="first-name" type="text" formControlName="login" placeholder="Login">
+      <ng-container *ngIf="profileForm.get('login')?.invalid">
+        <p class="login-form__message">Минимум 3 символа</p>
+      </ng-container>
+    </div>
+
+    <div class="login-form__input">
+      <label for="last-name">Password: </label>
+      <input id="last-name" type="password" formControlName="password" placeholder="Password">
+      <ng-container *ngIf="profileForm.get('password')?.invalid">
+        <p class="login-form__message">Минимум 4 символа</p>
+      </ng-container>
+    </div>
+
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+  </form>
+
+
+
+
+
