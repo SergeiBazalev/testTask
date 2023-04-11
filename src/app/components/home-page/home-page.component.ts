@@ -64,10 +64,32 @@ export class HomePageComponent implements OnInit  {
     }
     this.allUsers = [...this.allUsers].sort((a, b) => {
       const sortDirection = this.sortDirection === 'asc' ? 1 : -1;
-      if (a[property]! < b[property]!) {
+
+      let valueA = a[property]!;
+      let valueB = b[property]!;
+
+
+
+      if(typeof(valueA) === 'string' && ['discount', 'summ', 'bonus', 'phone'].includes(property)) {
+        valueA = parseInt(valueA);
+      }
+      if(typeof(valueB) === 'string' && ['discount', 'summ', 'bonus', 'phone'].includes(property)) {
+        valueB = parseInt(valueB);
+      }
+
+      if (typeof(valueA) === 'string' && property === 'birthday') {
+        valueA = new Date(valueA.split('.').reverse().join('-')).getTime();
+      }
+
+      if (typeof(valueB) === 'string' && property === 'birthday') {
+        valueB = new Date(valueB.split('.').reverse().join('-')).getTime();
+      }
+
+
+      if (valueA < valueB) {
         return -1 * sortDirection;
       }
-      if (a[property]! > b[property]!) {
+      if (valueA > valueB) {
         return 1 * sortDirection;
       }
       return 0;
